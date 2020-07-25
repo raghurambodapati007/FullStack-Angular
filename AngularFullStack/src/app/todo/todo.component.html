@@ -1,0 +1,26 @@
+<div class="container">
+    <!-- ngSumit is used to submit form by just clicking "Enter" in keyboard -->
+    <!-- #todoForm is a template which will have the entire form copy within it -->
+    <!-- todoForm.dirty will be shown only until one valid value is shown -->
+    <div class="alert alert-warning" *ngIf="todoForm.dirty && todoForm.invalid">Enter Valid Value</div>
+    <div class="alert alert-warning" *ngIf="todoForm.dirty && todoDescription.invalid">Enter valid description</div>
+    <div class="alert alert-warning" *ngIf="todoForm.dirty && todoTargetDate.invalid">Enter valid target date</div>
+
+    <form (ngSubmit)="!todoForm.invalid && saveTodo()" #todoForm="ngForm">
+        <fieldset class="form-group">
+            <label>Description</label>
+            <input type="text" #todoDescription="ngModel" [(ngModel)]="todo.description" class="form-control" name="description" placeholder="Enter min 5 letters to submit" required="required" minlength="5">
+            <br /><br />
+        </fieldset>
+
+        <!-- The below ngModel uses pipe to transform date so we are using 'PropertyBinding' and 'onChnage' event -->
+        <fieldset class="form-group">
+            <label>Date</label>
+            <input type="date" #todoTargetDate="ngModel"
+            [ngModel]="todo.targetDate | date:'yyyy-MM-dd'"
+            (ngModelChange)="todo.targetDate = $event" class="form-control" name="targetDate" required="required">
+        </fieldset>
+
+        <button type="submit" class="btn btn-success" >save</button>    
+    </form>
+</div>
