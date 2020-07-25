@@ -40,6 +40,8 @@ public class TodoJpaResource {
 
 	
 	@PostMapping("/jpa/users/{username}/todos")
+	
+	// To check if able to push to git 
 	public ResponseEntity<Void> createTodo(@PathVariable String username, @RequestBody Todo todo) {
 
 		todo.setUsername(username);
@@ -48,6 +50,7 @@ public class TodoJpaResource {
 				          .buildAndExpand(createdTodo.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+		
 
 	}
 
